@@ -25,6 +25,30 @@
     <servlet-name>ImgServlet</servlet-name>
     <url-pattern>/servlet/imgservlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>SaveCookie</servlet-name>
+    <servlet-class>servlet.SaveCookie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveCookie</servlet-name>
+    <url-pattern>/servlet/savecookie</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ReadCookie</servlet-name>
+    <servlet-class>servlet.ReadCookie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReadCookie</servlet-name>
+    <url-pattern>/servlet/readcookie</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>AjaxEncode</servlet-name>
+  	<servlet-class>servlet.AjaxEncode</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AjaxEncode</servlet-name>
+  	<url-pattern>/servlet/ajaxencode</url-pattern>
+  </servlet-mapping>
   <resource-ref>
     <res-ref-name>jdbc/websoc</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>

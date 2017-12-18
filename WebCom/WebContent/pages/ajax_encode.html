@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+	String.prototype.lenB = function()
+	{
+		//将中文信息替换为“#”
+		return this.replace(/[^\x0-\xf]/g, "#").length;
+	}
+	//获取并返回Microsoft.XMLHTTP对象
+	function getXMLHTTPRequest()
+	{
+		var myRequest = null;
+		if(window.XMLHttpRequest)
+		{
+			myRequest = new XMLHttpRequest();
+		} 
+		else 
+		{
+			myRequest = new ActiveXObject("Microsoft.XMLHTTP");
+		}		
+		return myRequest;
+	}
+	function send()
+	{
+		var obj = document.getElementById("name");
+		try {
+			var myRequest = getXMLHTTPRequest();
+			if(myRequest) {
+				myRequest.onreadystatechange = function()
+				{
+					if(4 == myRequest.readyState)
+					{
+						alert(myRequest.responseText);
+					}
+				};
+				//异步发送请求消息
+				myRequest.open("POST", "/WebCom/servlet/ajaxencode", true);
+				var msg = "name=" + obj.value;
+				myRequest.setRequestHeader("Content-Length", msg.lenB());
+				myRequest.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+				myRequest.send(msg);
+			}
+		} catch(e) 
+		{
+			alert(e);
+		}
+	}
+</script>
+<body>
+	<form>
+		<label for="name">Name:</label>
+		<input id="name" name="name"><br>
+		<input type="button" value="提交" onclick="send()" >
+	</form>
+</body>
+</html>
