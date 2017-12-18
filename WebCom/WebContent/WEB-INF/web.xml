@@ -18,12 +18,12 @@
     <url-pattern>/servlet/viewdevice</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>ImgServlet</servlet-name>
-  	<servlet-class>servlet.ImgServlet</servlet-class>
+    <servlet-name>ImgServlet</servlet-name>
+    <servlet-class>servlet.ImgServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ImgServlet</servlet-name>
-  	<url-pattern>/servlet/imgservlet</url-pattern>
+    <servlet-name>ImgServlet</servlet-name>
+    <url-pattern>/servlet/imgservlet</url-pattern>
   </servlet-mapping>
   <resource-ref>
     <res-ref-name>jdbc/websoc</res-ref-name>
