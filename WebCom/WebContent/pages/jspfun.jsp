@@ -14,9 +14,13 @@
 	</form>
 	<p>文本框中的内容:${param.text }</p>
 	<p>转换之后为：${jsptest:ps(param.text) }</p>
-	<%
+	<script type="text/javascript">
+		document.write("Hello!!");
+		<%
 		out.println(page.getClass().getName());
-	%><br>
+		%>
+	</script>
+	<br>
 	<%=config.getServletName() %><br>
 	<%=config.getInitParameter("jsparg") %>
 	

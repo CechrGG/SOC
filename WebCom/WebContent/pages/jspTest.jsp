@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- 导入jar包 -->
-<%@ page import="java.text.*,java.util.*" %>
+<%@ page import="java.text.*,java.util.*,java.awt.*,java.awt.image.*,java.io.*,javax.imageio.*" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -60,5 +60,42 @@
 		<c:when test="${param.name == \"qq\" }"><h4>QQ Best 2</h4></c:when>
 		<c:otherwise><h4>WTF</h4></c:otherwise>
 	</c:choose>
+	
+	<%
+		//字符串数组
+		String names[] = {"gg", "cr", "st"};
+		pageContext.setAttribute("names", names);
+		//字符串链表
+		LinkedList<String> list = new LinkedList<String>();
+		list.add("Java");
+		list.add("Jsp");
+		list.add("javascript");
+		pageContext.setAttribute("list", list);
+		//游标
+		pageContext.setAttribute("iterator", list.iterator());
+		//动态数组
+		Vector<String> vector = new Vector<String>();
+		vector.addAll(list);
+		//Enumeration
+		pageContext.setAttribute("enume", vector.elements());
+		//哈希表
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("gg", "best");
+		map.put("qq", "best2");
+		map.put("ot", "soso");
+		pageContext.setAttribute("keySet", map.keySet());
+		pageContext.setAttribute("entrySet", map.entrySet());
+				
+	%>
+	<c:forEach var="n" items="${names }">${n };</c:forEach><br>
+	<c:forEach begin="1" end="2" varStatus="i" var="ns" items="${names }">
+		names[${i.index }] = ${ns };
+	</c:forEach><br>
+	<c:forEach varStatus="i" var="l" items="${list }">list.get(${i.index }) = ${l };</c:forEach><br>
+	<c:forEach varStatus="i" var="it" items="${iterator }">list.get(${i.index }) = ${it };</c:forEach><br>
+	<c:forEach var="key" items="${keySet }">${key };</c:forEach><br>
+	<c:forEach var="entry" items="${entrySet }">${entry.key } = ${entry.value };</c:forEach><br>
+	<c:forTokens var="c" items="gg#qq#ot" delims="#">${c };</c:forTokens>
+	<c:forEach var="s" items="${enume }">${s };</c:forEach><hr>
 </body>
 </html>
