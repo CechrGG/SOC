@@ -2,7 +2,7 @@ package common;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
+import java.sql.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -50,7 +50,59 @@ public class DBServlet extends HttpServlet {
 	/**
 	 * Execute sql 
 	 * @param String sql
+	 * @param Object[] objects
+	 * @return ResultSet
 	 * 
 	 */
 
+	@SuppressWarnings("finally")
+	public ResultSet execSQL(String sql, Object... objects ) {
+		ResultSet rs = null;	
+		PreparedStatement pstmt	= null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(int i = 0; i < objects.length; i++) {
+				pstmt.setObject(i + 1, objects[i]);
+			}
+			pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return rs;
+		}
+	}
+	
+	/**
+	 * @校验验证码
+	 * @param HttpServletRequest request
+	 * @param String validateCode
+	 * @return boolean return false if it's illegal else true
+	 */
+	public boolean checkValidateCode(HttpServletRequest request, String validateCode) {
+		boolean isLegal = false;
+		//从session中获取系统随机生成的验证码
+		String validateCodeSession = (String)request.getSession().getAttribute("validateCode");
+		if(null == validateCodeSession) {
+			request.setAttribute("info", "验证码过期，请刷新页面");
+			request.setAttribute("codeError", "验证码过期");
+		} else if (!validateCode.equalsIgnoreCase(validateCodeSession)){
+			request.setAttribute("info", "验证码不正确，请重新输入");
+			request.setAttribute("codeError", "验证码不正确");
+		} else {
+			isLegal = true;
+		}
+		
+		return isLegal;
+	}
 }
