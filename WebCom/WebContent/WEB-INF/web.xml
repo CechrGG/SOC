@@ -57,6 +57,14 @@
   	<servlet-name>ValidateCode</servlet-name>
   	<url-pattern>/login/validatecode</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>Register</servlet-name>
+  	<servlet-class>login.Register</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Register</servlet-name>
+  	<url-pattern>/login/register</url-pattern>
+  </servlet-mapping>
   <resource-ref>
     <res-ref-name>jdbc/websoc</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>

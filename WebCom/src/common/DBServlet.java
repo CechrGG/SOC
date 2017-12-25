@@ -28,6 +28,19 @@ public class DBServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    //get conn
+    private void initConnection() {
+    	try {
+    		if(null == conn) {
+				Context ctx = new InitialContext();
+				DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/websoc");
+				conn = ds.getConnection();
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    }
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
@@ -37,11 +50,7 @@ public class DBServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8"); 
 		PrintWriter writer = response.getWriter();
 		try {
-			if(null == conn) {
-				Context ctx = new InitialContext();
-				DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/websoc");
-				conn = ds.getConnection();
-			}
+			this.initConnection();
 		} catch (Exception e) {
 			e.printStackTrace(writer);
 		}
@@ -56,15 +65,43 @@ public class DBServlet extends HttpServlet {
 	 */
 
 	@SuppressWarnings("finally")
-	public ResultSet execSQL(String sql, Object... objects ) {
-		ResultSet rs = null;	
+	public void execSQL(String sql, Object... objects ) {	
 		PreparedStatement pstmt	= null;
 		try {
+			if (null == conn) {
+				this.initConnection();
+			}
 			pstmt = conn.prepareStatement(sql);
 			for(int i = 0; i < objects.length; i++) {
 				pstmt.setObject(i + 1, objects[i]);
 			}
 			pstmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public ResultSet execQuery(String sql) {
+		ResultSet rs = null;	
+		PreparedStatement pstmt	= null;
+		try {
+			if (null == conn) {
+				this.initConnection();
+			}
+			pstmt = conn.prepareStatement(sql);			
+			rs = pstmt.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
