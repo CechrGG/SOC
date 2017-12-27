@@ -1,7 +1,6 @@
 package login;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +22,8 @@ public class Register extends DBServlet{
 			ServletException, IOException {
 		String userName = null;
 		if(request.getParameter("login") != null) {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("jspTest.jsp");
+			return;
 		}
 		try {
 			//返回之后直接回到注册界面

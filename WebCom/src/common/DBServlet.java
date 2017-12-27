@@ -1,7 +1,6 @@
 package common;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
 
 import javax.naming.Context;

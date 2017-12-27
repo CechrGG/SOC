@@ -132,7 +132,10 @@ table
 				<img alt="验证码" src="../login/validatecode" id="img_validateCode" onclick="refresh()" style="width:90px;height:20px;display:inline-block;margin-bottom:2px;vertical-align:middle;"/></td>
 			</tr>
 			<tr align="center">
-				<td colspan="2"><input style="width:64px;" type="button" value="注册" onclick="checkRegister()"/></td>
+				<td colspan="2">
+					<input style="width:64px;" type="button" value="注册" onclick="checkRegister()"/>
+					<input style="width:64px;" type="submit" value="登录" name="login" /> 
+				</td>
 			</tr>
 		</table>
 	</form>
