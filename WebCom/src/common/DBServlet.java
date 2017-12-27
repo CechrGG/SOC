@@ -30,9 +30,9 @@ public class DBServlet extends HttpServlet {
     }
     
     //get conn
-    private void initConnection() {
+    private Connection getConnection() {
     	try {
-    		if(null == conn) {
+    		if(null == conn || (null != conn && conn.isClosed())) {
 				Context ctx = new InitialContext();
 				DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/websoc");
 				conn = ds.getConnection();
@@ -40,6 +40,7 @@ public class DBServlet extends HttpServlet {
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
+    	return conn;
     }
 
 	/**
@@ -47,13 +48,13 @@ public class DBServlet extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html; charset=UTF-8"); 
-		PrintWriter writer = response.getWriter();
-		try {
-			this.initConnection();
-		} catch (Exception e) {
-			e.printStackTrace(writer);
-		}
+//		response.setContentType("text/html; charset=UTF-8"); 
+//		PrintWriter writer = response.getWriter();
+//		try {
+//			this.initConnection();
+//		} catch (Exception e) {
+//			e.printStackTrace(writer);
+//		}
 	}
 	
 	/**
@@ -64,20 +65,18 @@ public class DBServlet extends HttpServlet {
 	 * 
 	 */
 
-	@SuppressWarnings("finally")
-	public void execSQL(String sql, Object... objects ) {	
+	public void execSQL(String sql, Object... objects ) throws Exception{	
 		PreparedStatement pstmt	= null;
+		Connection conn = null;
 		try {
-			if (null == conn) {
-				this.initConnection();
-			}
+			conn = this.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			for(int i = 0; i < objects.length; i++) {
 				pstmt.setObject(i + 1, objects[i]);
 			}
 			pstmt.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if(pstmt != null) {
@@ -87,23 +86,27 @@ public class DBServlet extends HttpServlet {
 					conn.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
 		}
 	}
 	
-	@SuppressWarnings("finally")
-	public ResultSet execQuery(String sql) {
+	public boolean checkUserName(String userName) throws Exception{
 		ResultSet rs = null;	
 		PreparedStatement pstmt	= null;
+		Connection conn = null;
 		try {
-			if (null == conn) {
-				this.initConnection();
-			}
+			conn = this.getConnection();
+			String sql = "select userName from t_users";
 			pstmt = conn.prepareStatement(sql);			
-			rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();			
+			while(rs.next()) {
+				if (userName.equals(rs.getString("userName"))){
+					return false;
+				}
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				if(pstmt != null) {
@@ -113,11 +116,10 @@ public class DBServlet extends HttpServlet {
 					conn.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}
-			
-			return rs;
 		}
+		return true;
 	}
 	
 	/**

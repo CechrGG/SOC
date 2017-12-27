@@ -55,6 +55,7 @@ public class ValidateCode extends HttpServlet {
 		response.setHeader("ragma", "no-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
+		response.setContentType("image/jpeg");
 		//验证码图片
 		int width = 90, height = 20;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
@@ -67,8 +68,8 @@ public class ValidateCode extends HttpServlet {
 		String[] fontNames = {"Times New Roman", "Book antiqua", "Arial"};//验证码字体集合
 		Random random = new Random();
 		//绘制干扰线
-		graphics.setColor(getRandomColor(120,200));
-		for(int i = 0; i < 20; i++) {
+		graphics.setColor(getRandomColor(150,200));
+		for(int i = 0; i < 12; i++) {
 			int x = random.nextInt(width - 1);
 			int y = random.nextInt(height - 1);
 			int x1 = random.nextInt(5) + 1;
@@ -82,7 +83,7 @@ public class ValidateCode extends HttpServlet {
 			char codeChar = codeChars.charAt(random.nextInt(charsLength));
 			validateCode.append(codeChar);
 			graphics.setColor(getRandomColor(10, 100));
-			graphics.drawString(String.valueOf(codeChar), 16*i + random.nextInt(7), height - random.nextInt(6));
+			graphics.drawString(String.valueOf(codeChar), 16*i + random.nextInt(7), height - random.nextInt(4));
 		}
 
 		HttpSession session = request.getSession();
