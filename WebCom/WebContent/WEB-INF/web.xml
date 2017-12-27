@@ -65,6 +65,14 @@
   	<servlet-name>Register</servlet-name>
   	<url-pattern>/login/register</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>Login</servlet-name>
+  	<servlet-class>login.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Login</servlet-name>
+  	<url-pattern>/login/login</url-pattern>
+  </servlet-mapping>
   <resource-ref>
     <res-ref-name>jdbc/websoc</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>

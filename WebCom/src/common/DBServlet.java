@@ -96,14 +96,12 @@ public class DBServlet extends HttpServlet {
 		Connection conn = null;
 		try {
 			conn = this.getConnection();
-			String sql = "select userName from t_users";
+			String sql = "select userName from t_users where userName='" + userName + "'" ;
 			pstmt = conn.prepareStatement(sql);			
-			rs = pstmt.executeQuery();			
-			while(rs.next()) {
-				if (userName.equals(rs.getString("userName"))){
-					return false;
-				}
-			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return false;
+			}			
 		} catch (SQLException e) {
 			throw e;
 		} finally {
@@ -119,6 +117,38 @@ public class DBServlet extends HttpServlet {
 			}
 		}
 		return true;
+	}
+	
+	public boolean checkPassword(String userName, String password) throws Exception{
+		ResultSet rs = null;	
+		PreparedStatement pstmt	= null;
+		Connection conn = null;
+		try {
+			conn = this.getConnection();
+			String sql = "select passwordMD5 from t_users where userName='" + userName + "'" ;
+			pstmt = conn.prepareStatement(sql);			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				String passwordMD5 = Encryptor.md5Encrypt(password);
+				if(passwordMD5.equals(rs.getString("passwordMD5"))) {
+					return true;
+				}
+			}			
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				throw e;
+			}
+		}
+		return false;
 	}
 	
 	/**
