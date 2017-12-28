@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1>成功查询到姓名：</h1><br>
-	<%= request.getAttribute("name") %>
+	<%--= request.getAttribute("name") --%>
 </body>
 </html>

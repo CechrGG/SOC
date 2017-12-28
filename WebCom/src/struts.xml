@@ -7,5 +7,9 @@
 			<result name="success">/pages/success.jsp</result>
 			<result name="error">/pages/error.jsp</result>
 		</action>
+		<action name="child" class="struts2Test.children.ChildAction">
+			<result name="success">/pages/success.jsp</result>
+			<result name="error">/pages/error.jsp</result>
+		</action>
 	</package>
 </struts>
