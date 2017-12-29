@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>查询成功</title>
+<title>成功</title>
 </head>
 <body>
-	<h1>成功查询到姓名：</h1><br>
+	<h1>登录成功！</h1><br>
 	<%--= request.getAttribute("name") --%>
+	<p>本站访问次数：${application.counter }</p>
+	<p>用户名：${session.username }</p>
+	<p>登录信息：${request.info }</p>
 </body>
 </html>

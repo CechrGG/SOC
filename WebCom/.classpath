@@ -28,7 +28,5 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ognl-3.1.15.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-core-2.5.14.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-convention-plugin-2.5.14.1.jar"/>
-	<classpathentry kind="lib" path="D:/GuoGuo/Git/SOC/WebCom/WebContent/WEB-INF/lib/struts2-convention-plugin-2.5.14.1.jar"/>
-	<classpathentry kind="lib" path="D:/GuoGuo/Git/SOC/WebCom/WebContent/WEB-INF/lib/freemarker-2.3.26-incubating.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

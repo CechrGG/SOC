@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>错误</title>
 </head>
 <body>
 	<h1>ERROR</h1>
+	<p>${request.info }</p>
 </body>
 </html>
