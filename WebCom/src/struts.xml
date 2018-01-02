@@ -3,13 +3,17 @@
 						"http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 	<package name="struts2Test" extends="struts-default">
-		<action name="query" class="struts2Test.QueryAction">
+		<global-results>
 			<result name="success">/pages/success.jsp</result>
 			<result name="error">/pages/error.jsp</result>
-		</action>
-		<action name="child" class="struts2Test.children.ChildAction">
-			<result name="success">/pages/success.jsp</result>
-			<result name="error">/pages/error.jsp</result>
-		</action>
+			<result name="exception">/pages/exception.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="exception" exception="struts2Test.exception.UserException"/>
+			<exception-mapping result="exception" exception="java.sql.SQLException"/>
+		</global-exception-mappings>
+		<action name="query" class="struts2Test.QueryAction"/>
+		<action name="child" class="struts2Test.children.ChildAction"/>
+		<action name="model_login" class="struts2Test.modeldriven.LoginAction"/>
 	</package>
 </struts>

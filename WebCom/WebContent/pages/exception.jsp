@@ -5,15 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>成功</title>
+<title>异常</title>
 </head>
 <body>
-	<h1>${param.username }登录成功！</h1><br>
-	<%--= request.getAttribute("name") --%>
-	
-	<s:property value="result"/>
-	<p>本站访问次数：${application.counter }</p>
-	<p>用户名：${session.username }</p>
-	<p>登录信息：${request.info }</p>
+	<h1>异常消息</h1>
+	<p><font color="red"><s:property value="exception.message"/></font></p>
+	<h1>异常栈消息</h1>
+	<s:property value="exceptionStack"/>
 </body>
 </html>
