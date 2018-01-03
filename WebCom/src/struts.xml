@@ -3,6 +3,15 @@
 						"http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 	<package name="struts2Test" extends="struts-default">
+		<interceptors>
+			<interceptor name="executeTime" class="struts2Test.interceptor.ExecuteTimeInterceptor">
+				<param name="name">执行时间</param>
+			</interceptor>
+			<interceptor-stack name="customStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="executeTime"/>
+			</interceptor-stack>
+		</interceptors>
 		<global-results>
 			<result name="success">/pages/success.jsp</result>
 			<result name="error">/pages/error.jsp</result>
@@ -15,6 +24,10 @@
 		</global-exception-mappings>
 		<action name="query" class="struts2Test.QueryAction"/>
 		<action name="child" class="struts2Test.children.ChildAction"/>
-		<action name="model_login" class="struts2Test.modeldriven.LoginAction"/>
+		<action name="model_login" class="struts2Test.modeldriven.LoginAction">
+			<interceptor-ref name="customStack">
+				<param name="executeTime.name">计算执行时间的拦截器</param>
+			</interceptor-ref>
+		</action>
 	</package>
 </struts>
