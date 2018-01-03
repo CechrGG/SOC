@@ -11,6 +11,7 @@
 		<global-exception-mappings>
 			<exception-mapping result="exception" exception="struts2Test.exception.UserException"/>
 			<exception-mapping result="exception" exception="java.sql.SQLException"/>
+			<exception-mapping result="exception" exception="java.lang.Exception"/>
 		</global-exception-mappings>
 		<action name="query" class="struts2Test.QueryAction"/>
 		<action name="child" class="struts2Test.children.ChildAction"/>
