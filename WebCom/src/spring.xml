@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DOCTYPE beans PUBLIC "-//SPRING/DTD BEAN/EN" 
+		"http://www.springframework.org/dtd/spring-beans.dtd"-->
+		
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="helloSpringImp1" class="springTest.HelloSpringImp1"></bean>
+	<bean id="helloSpringImp2" class="springTest.HelloSpringImp2"></bean>
+	<bean id="helloTest" class="springTest.HelloTest">
+		<constructor-arg ref="helloSpringImp1"></constructor-arg>
+		<!-- property name="helloSpring" ref="helloSpringImp2"></property-->
+		<!-- constructor-arg ref="helloSpringImp1"></constructor-arg-->	
+	</bean>
+</beans>
